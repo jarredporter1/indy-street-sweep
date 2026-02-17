@@ -30,6 +30,7 @@ export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
   const { open } = useSignUpModal();
   const [search, setSearch] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [flyTarget, setFlyTarget] = useState<{ lat: number; lng: number } | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -115,6 +116,8 @@ export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
                     key={rp.id}
                     id={`rally-point-${rp.id}`}
                     onClick={() => handleListItemClick(rp)}
+                    onMouseEnter={() => setHoveredId(rp.id)}
+                    onMouseLeave={() => setHoveredId(null)}
                     className={`w-full flex items-center gap-3 px-4 py-3 border-b border-gray-50 text-left transition-all cursor-pointer hover:bg-gray-50 ${
                       isSelected ? "bg-indy-red/5 border-l-[3px] border-l-indy-red" : ""
                     }`}
@@ -166,6 +169,7 @@ export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
               key={point.id}
               point={point}
               isSelected={selectedId === point.id}
+              isHovered={hoveredId === point.id}
               onSignUp={(id) => open(id)}
               onMarkerClick={() => handleMarkerClick(point)}
             />
