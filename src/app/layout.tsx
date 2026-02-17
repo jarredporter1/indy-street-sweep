@@ -15,9 +15,9 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Indy Street Sweep | Day of Caring 777",
+  title: "Street Sweep Indy | 777 Volunteers. One City. One Morning.",
   description:
-    "United in service. 777 neighbors coming together on July 7, 2026 to clean up Indianapolis — one massive day of caring.",
+    "Join 777 neighbors on July 7, 2026 to clean up Indianapolis. Pick a park, grab your crew, and be part of the biggest volunteer day Indy has ever seen.",
   keywords: [
     "Indianapolis",
     "volunteer",
@@ -25,19 +25,29 @@ export const metadata: Metadata = {
     "street sweep",
     "day of caring",
     "Citizens 7",
+    "Indy volunteers",
   ],
   openGraph: {
-    title: "Indy Street Sweep | Day of Caring 777",
+    title: "Street Sweep Indy | July 7, 2026",
     description:
-      "777 neighbors. 25 parks. 1 city. Join us July 7, 2026 to clean up Indianapolis.",
+      "777 volunteers. 25 parks. 1 city. Join the biggest cleanup day Indianapolis has ever seen.",
     type: "website",
     url: "https://indystreetsweep.com",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 2160,
+        height: 3840,
+        alt: "Street Sweep Indy",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Indy Street Sweep | Day of Caring 777",
+    title: "Street Sweep Indy | July 7, 2026",
     description:
-      "777 neighbors. 25 parks. 1 city. Join us July 7, 2026 to clean up Indianapolis.",
+      "777 volunteers. 25 parks. 1 city. Join the biggest cleanup day Indianapolis has ever seen.",
+    images: ["/images/og-image.png"],
   },
 };
 
