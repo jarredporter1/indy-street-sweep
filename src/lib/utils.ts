@@ -11,9 +11,9 @@ export function getDensityLevel(count: number): DensityLevel {
 }
 
 export const DENSITY_COLORS: Record<DensityLevel, string> = {
-  low: "#EF4444",
-  medium: "#F59E0B",
-  high: "#22C55E",
+  low: "#8fcea0",
+  medium: "#2ea043",
+  high: "#013d0e",
 };
 
 export const DENSITY_LABELS: Record<DensityLevel, string> = {

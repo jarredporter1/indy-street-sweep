@@ -97,10 +97,10 @@ export function LocationPicker({ rallyPoints, value, onChange, error }: Location
                         {isFull ? (
                           <p className="text-xs text-gray-400 font-semibold">Full</p>
                         ) : (
-                        <p className={`text-xs ${
-                          density === "low" ? "text-red-500" :
-                          density === "medium" ? "text-amber-500" : "text-green-500"
-                        }`}>
+                        <p className="text-xs" style={{
+                          color: density === "low" ? "#8fcea0" :
+                          density === "medium" ? "#2ea043" : "#013d0e"
+                        }}>
                           {DENSITY_LABELS[density]}
                         </p>
                         )}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Lora, Sarina } from "next/font/google";
+import { Lora, Montserrat } from "next/font/google";
 import "./globals.css";
 
 const lora = Lora({
@@ -8,9 +8,8 @@ const lora = Lora({
   display: "swap",
 });
 
-const sarina = Sarina({
+const montserrat = Montserrat({
   variable: "--font-heading",
-  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
@@ -49,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${lora.variable} ${sarina.variable} antialiased`}>{children}</body>
+      <body className={`${lora.variable} ${montserrat.variable} antialiased`}>{children}</body>
     </html>
   );
 }

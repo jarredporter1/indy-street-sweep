@@ -35,7 +35,7 @@ html {
 
 /* Heading font utility */
 .font-heading {
-  font-family: var(--font-heading), cursive;
+  font-family: var(--font-heading), system-ui, sans-serif;
 }
 
 .leaflet-container {
