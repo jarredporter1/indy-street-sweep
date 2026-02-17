@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { VOLUNTEER_GOAL, EVENT_DATE_DISPLAY, EVENT_TIME_DISPLAY } from "@/lib/constants";
+import { LiveCounter } from "./LiveCounter";
 
 export function Hero() {
   return (
@@ -36,6 +37,11 @@ export function Hero() {
             <p className="text-sm text-white/50">
               {EVENT_DATE_DISPLAY} &middot; {EVENT_TIME_DISPLAY}
             </p>
+
+            {/* Live volunteer counter */}
+            <div className="flex justify-center pt-2">
+              <LiveCounter initialCount={0} goal={VOLUNTEER_GOAL} />
+            </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-3">
