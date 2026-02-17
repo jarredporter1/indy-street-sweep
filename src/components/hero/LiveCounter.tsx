@@ -12,9 +12,9 @@ export function LiveCounter({ initialCount, goal }: LiveCounterProps) {
   const percentage = Math.min((count / goal) * 100, 100);
 
   return (
-    <div className="w-full max-w-md space-y-3">
+    <div className="w-full max-w-md space-y-3 text-center">
       {/* Count display */}
-      <div className="flex items-baseline gap-1">
+      <div className="flex items-baseline justify-center gap-1">
         <span className="text-4xl sm:text-5xl font-black text-white tabular-nums animate-count" key={count}>
           {count.toLocaleString()}
         </span>
