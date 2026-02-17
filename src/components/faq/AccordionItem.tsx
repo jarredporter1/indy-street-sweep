@@ -15,7 +15,7 @@ export function AccordionItem({ question, answer, link }: AccordionItemProps) {
   return (
     <button
       onClick={() => setIsOpen(!isOpen)}
-      className="w-full bg-white rounded-xl px-6 py-5 mb-2 text-left cursor-pointer group transition-shadow hover:shadow-sm"
+      className="w-full bg-white rounded-xl px-4 py-4 sm:px-6 sm:py-5 mb-1 sm:mb-2 text-left cursor-pointer group transition-shadow hover:shadow-sm"
       aria-expanded={isOpen}
     >
       <div className="flex items-center justify-between gap-4">

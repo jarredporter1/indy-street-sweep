@@ -6,7 +6,7 @@ import { AccordionItem } from "./AccordionItem";
 export function FAQ() {
   return (
     <section id="faq" className="py-16 sm:py-24 section-px">
-      <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-20">
         {/* Left — big title */}
         <div className="lg:w-[320px] shrink-0">
           <h2 className="font-heading text-5xl sm:text-7xl lg:text-9xl font-black text-indy-navy tracking-tighter leading-none">
@@ -19,7 +19,7 @@ export function FAQ() {
         </div>
 
         {/* Right — accordion by category */}
-        <div className="flex-1 space-y-6">
+        <div className="flex-1 space-y-4 sm:space-y-6">
           {FAQ_CATEGORIES.map((category) => (
             <div key={category.label} className="space-y-2">
               {/* Category label */}
