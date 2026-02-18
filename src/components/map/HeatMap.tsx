@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css";
 import type { RallyPointWithCount } from "@/types";
 import { RallyPointMarker } from "./RallyPointMarker";
 import { MapLegend } from "./MapLegend";
+import { MobileBottomSheet, type SheetState } from "./MobileBottomSheet";
 import { useSignUpModal } from "@/hooks/useSignUpModal";
 import { useRallyPoints } from "@/hooks/useRallyPoints";
 import { getDensityLevel, DENSITY_COLORS, DENSITY_LABELS } from "@/lib/utils";
@@ -32,6 +33,7 @@ export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [flyTarget, setFlyTarget] = useState<{ lat: number; lng: number } | null>(null);
+  const [sheetState, setSheetState] = useState<SheetState>("peek");
   const listRef = useRef<HTMLDivElement>(null);
 
   const zones = useMemo(() => {
@@ -62,14 +64,23 @@ export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
 
   const totalFiltered = filtered.reduce((sum, [, pts]) => sum + pts.length, 0);
 
+  /* ─── Desktop list item click ─── */
   function handleListItemClick(rp: RallyPointWithCount) {
     setSelectedId(rp.id);
     setFlyTarget({ lat: rp.lat, lng: rp.lng });
   }
 
+  /* ─── Mobile bottom sheet item click ─── */
+  function handleMobileSelectPoint(rp: RallyPointWithCount) {
+    setSelectedId(rp.id);
+    setFlyTarget({ lat: rp.lat, lng: rp.lng });
+  }
+
+  /* ─── Map marker click ─── */
   function handleMarkerClick(rp: RallyPointWithCount) {
     setSelectedId(rp.id);
-    // Scroll list item into view
+    setSheetState("detail"); // triggers mobile bottom sheet detail view
+    // Scroll desktop list item into view
     const el = document.getElementById(`rally-point-${rp.id}`);
     el?.scrollIntoView({ behavior: "smooth", block: "center" });
   }
@@ -78,8 +89,8 @@ export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
 
   return (
     <div className="flex flex-col lg:flex-row w-full h-full overflow-hidden bg-white">
-      {/* Left panel — list */}
-      <div className="w-full lg:w-[380px] shrink-0 flex flex-col border-r border-gray-200 max-h-[40vh] lg:max-h-none">
+      {/* ═══ Left panel — desktop only ═══ */}
+      <div className="hidden lg:flex w-[380px] shrink-0 flex-col border-r border-gray-200">
         {/* Search header */}
         <div className="p-4 border-b border-gray-100 space-y-3">
           <div className="flex items-center justify-between">
@@ -122,7 +133,6 @@ export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
                       isSelected ? "bg-indy-red/5 border-l-[3px] border-l-indy-red" : ""
                     }`}
                   >
-                    {/* Density dot */}
                     <div
                       className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-white text-xs font-bold"
                       style={{ backgroundColor: color }}
@@ -152,8 +162,8 @@ export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
         </div>
       </div>
 
-      {/* Right panel — map */}
-      <div className="relative flex-1 h-[400px] lg:h-full">
+      {/* ═══ Map panel ═══ */}
+      <div className="relative flex-1 h-full">
         <MapContainer
           center={[INDY_CENTER.lat, INDY_CENTER.lng]}
           zoom={DEFAULT_ZOOM}
@@ -177,9 +187,9 @@ export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
           {flyTarget && <FlyToPoint lat={flyTarget.lat} lng={flyTarget.lng} />}
         </MapContainer>
 
-        {/* Selected point detail card overlay */}
+        {/* ─── Desktop detail card (hidden on mobile) ─── */}
         {selectedPoint && (
-          <div className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-[320px] z-[1000] bg-white rounded-xl shadow-xl border border-gray-200 p-4 space-y-3">
+          <div className="hidden lg:block absolute bottom-4 right-4 w-[320px] z-[1000] bg-white rounded-xl shadow-xl border border-gray-200 p-4 space-y-3">
             <div className="flex items-start justify-between">
               <div>
                 <h4 className="font-bold text-indy-navy">{selectedPoint.name}</h4>
@@ -228,6 +238,21 @@ export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
             )}
           </div>
         )}
+
+        {/* ─── Mobile bottom sheet (hidden on desktop) ─── */}
+        <div className="lg:hidden">
+          <MobileBottomSheet
+            state={sheetState}
+            onStateChange={setSheetState}
+            filteredZones={filtered}
+            selectedPoint={selectedPoint ?? null}
+            search={search}
+            onSearchChange={setSearch}
+            onSelectPoint={handleMobileSelectPoint}
+            onSignUp={(id) => open(id)}
+            totalCount={totalFiltered}
+          />
+        </div>
 
         <MapLegend />
       </div>
