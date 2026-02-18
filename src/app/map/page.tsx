@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { RallyPointWithCount } from "@/types";
 import { RALLY_POINT_SEED_DATA, VOLUNTEER_GOAL } from "@/lib/constants";
 import { SignUpModalContext } from "@/hooks/useSignUpModal";
@@ -77,9 +78,13 @@ export default function MapPage() {
                 <svg className="w-5 h-5 text-gray-400 group-hover:text-indy-navy transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
-                <span className="font-black text-indy-navy text-sm sm:text-lg">
-                  Indy Street <span className="text-indy-red">Sweep</span>
-                </span>
+                <Image
+                  src="/images/logos/Street Sweep Logo Transparent 1.png"
+                  alt="Street Sweep Indy"
+                  width={120}
+                  height={34}
+                  className="h-8 w-auto"
+                />
               </Link>
             </div>
 
