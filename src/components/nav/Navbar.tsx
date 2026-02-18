@@ -10,11 +10,11 @@ export function Navbar() {
         {/* Logo / Brand */}
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/images/logos/street-sweep-logo.png"
-            alt="Indy Street Sweep"
-            width={140}
-            height={40}
-            className="h-10 w-auto"
+            src="/images/logos/Street Sweep Logo Transparent 1.png"
+            alt="Street Sweep Indy"
+            width={180}
+            height={50}
+            className="h-12 w-auto"
           />
         </Link>
 
