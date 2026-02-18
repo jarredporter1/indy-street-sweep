@@ -6,50 +6,42 @@ export const EVENT_TIME_DISPLAY = "8:00 AM – 10:00 AM";
 export const VOLUNTEER_GOAL = 777;
 
 export const RALLY_POINT_SEED_DATA = [
-  // Near Eastside
-  { name: "Ellenberger Park", address: "5301 E St Clair St, Indianapolis, IN", lat: 39.7797, lng: -86.0878, zone: "Near Eastside", capacity: 35 },
-  { name: "Brookside Park", address: "3500 Brookside Pkwy S Dr, Indianapolis, IN", lat: 39.7883, lng: -86.1048, zone: "Near Eastside", capacity: 40 },
-  { name: "Arsenal Park", address: "1002 E 30th St, Indianapolis, IN", lat: 39.8051, lng: -86.1399, zone: "Near Eastside", capacity: 30 },
+  // Priority Tier 1 — High Traffic / Post-July 4th
+  { name: "Garfield Park", address: "2345 Pagoda Dr, Indianapolis, IN", lat: 39.7276, lng: -86.1549, zone: "Near South", capacity: 50 },
+  { name: "White River State Park", address: "801 W Washington St, Indianapolis, IN", lat: 39.7655, lng: -86.1710, zone: "Downtown", capacity: 50 },
+  { name: "Riverside Park — North Zone", address: "2420 E Riverside Dr, Indianapolis, IN", lat: 39.8220, lng: -86.1196, zone: "Northwest", capacity: 40 },
+  { name: "Riverside Park — South Zone", address: "2420 E Riverside Dr, Indianapolis, IN", lat: 39.8170, lng: -86.1196, zone: "Northwest", capacity: 40 },
 
-  // Near Westside
-  { name: "Haughville Park", address: "520 Belleview Pl, Indianapolis, IN", lat: 39.7748, lng: -86.1950, zone: "Near Westside", capacity: 30 },
-  { name: "Washington Park", address: "3130 E 30th St, Indianapolis, IN", lat: 39.8051, lng: -86.1100, zone: "Near Westside", capacity: 35 },
+  // Priority Tier 2 — Urban Core / Commercial Districts
+  { name: "Military Park", address: "601 W New York St, Indianapolis, IN", lat: 39.7740, lng: -86.1713, zone: "Downtown", capacity: 30 },
+  { name: "Fountain Square District", address: "1056 Virginia Ave, Indianapolis, IN", lat: 39.7485, lng: -86.1460, zone: "Near South", capacity: 35 },
+  { name: "Fletcher Place Neighborhood", address: "630 Virginia Ave, Indianapolis, IN", lat: 39.7520, lng: -86.1490, zone: "Near South", capacity: 30 },
+  { name: "Bates-Hendricks Neighborhood", address: "1528 S Madison Ave, Indianapolis, IN", lat: 39.7380, lng: -86.1550, zone: "Near South", capacity: 30 },
 
-  // Downtown
-  { name: "Military Park", address: "601 W New York St, Indianapolis, IN", lat: 39.7740, lng: -86.1713, zone: "Downtown", capacity: 40 },
-  { name: "University Park", address: "200 S Meridian St, Indianapolis, IN", lat: 39.7660, lng: -86.1580, zone: "Downtown", capacity: 25 },
+  // Priority Tier 3 — Major Neighborhood Parks
+  { name: "Ellenberger Park", address: "5301 E St Clair St, Indianapolis, IN", lat: 39.7797, lng: -86.0878, zone: "East", capacity: 30 },
+  { name: "Brookside Park", address: "3500 Brookside Pkwy S Dr, Indianapolis, IN", lat: 39.7883, lng: -86.1048, zone: "Near East", capacity: 30 },
+  { name: "Washington Park", address: "3130 E 30th St, Indianapolis, IN", lat: 39.8051, lng: -86.1100, zone: "North", capacity: 30 },
+  { name: "Broad Ripple Park", address: "1550 Broad Ripple Ave, Indianapolis, IN", lat: 39.8690, lng: -86.1411, zone: "North", capacity: 30 },
 
-  // Northside
-  { name: "Broad Ripple Park", address: "1550 Broad Ripple Ave, Indianapolis, IN", lat: 39.8690, lng: -86.1411, zone: "Northside", capacity: 40 },
-  { name: "Holliday Park", address: "6363 Spring Mill Rd, Indianapolis, IN", lat: 39.8710, lng: -86.1740, zone: "Northside", capacity: 35 },
-  { name: "Marott Park", address: "7350 College Ave, Indianapolis, IN", lat: 39.8785, lng: -86.1490, zone: "Northside", capacity: 30 },
+  // Priority Tier 4 — Strategic Neighborhoods
+  { name: "Highland Park", address: "1100 E New York St, Indianapolis, IN", lat: 39.7700, lng: -86.1430, zone: "Near East", capacity: 25 },
+  { name: "Southwestway Park", address: "8400 Mann Rd, Indianapolis, IN", lat: 39.6648, lng: -86.2245, zone: "West", capacity: 35 },
+  { name: "Sahm Park", address: "6801 E 91st St, Indianapolis, IN", lat: 39.9157, lng: -86.0590, zone: "North", capacity: 25 },
+  { name: "Arsenal Park", address: "4602 Indianola Ave, Indianapolis, IN", lat: 39.8265, lng: -86.1320, zone: "Near East", capacity: 25 },
 
-  // Far Northside
-  { name: "Northwestway Park", address: "5253 W 62nd St, Indianapolis, IN", lat: 39.8538, lng: -86.2254, zone: "Far Northside", capacity: 35 },
-  { name: "Sahm Park", address: "6801 E 91st St, Indianapolis, IN", lat: 39.9157, lng: -86.0590, zone: "Far Northside", capacity: 30 },
+  // Priority Tier 5 — Downtown Extensions
+  { name: "University Park", address: "300 S Meridian St, Indianapolis, IN", lat: 39.7660, lng: -86.1580, zone: "Downtown", capacity: 25 },
+  { name: "Dr. MLK Jr. Park & Landmark for Peace", address: "1702 Dr. Martin Luther King Jr St, Indianapolis, IN", lat: 39.7750, lng: -86.1650, zone: "Downtown", capacity: 25 },
+  { name: "Colts Canal Playscape", address: "Canal Walk, Indianapolis, IN", lat: 39.7700, lng: -86.1670, zone: "Downtown", capacity: 20 },
+  { name: "Watkins Park", address: "2360 Dr. Martin Luther King Jr St, Indianapolis, IN", lat: 39.7855, lng: -86.1610, zone: "Near North", capacity: 20 },
 
-  // Southside
-  { name: "Garfield Park", address: "2345 Pagoda Dr, Indianapolis, IN", lat: 39.7276, lng: -86.1549, zone: "Southside", capacity: 45 },
-  { name: "Perry Park", address: "451 E Stop 11 Rd, Indianapolis, IN", lat: 39.6577, lng: -86.1454, zone: "Southside", capacity: 35 },
-  { name: "Carson Park", address: "5001 Shelby St, Indianapolis, IN", lat: 39.7023, lng: -86.1450, zone: "Southside", capacity: 30 },
-
-  // Far Southside
-  { name: "Southwestway Park", address: "8400 Mann Rd, Indianapolis, IN", lat: 39.6648, lng: -86.2245, zone: "Far Southside", capacity: 30 },
-  { name: "Sarah T. Bolton Park", address: "8401 Southeastern Ave, Indianapolis, IN", lat: 39.6702, lng: -86.0140, zone: "Far Southside", capacity: 30 },
-
-  // Westside
-  { name: "Eagle Creek Park", address: "7840 W 56th St, Indianapolis, IN", lat: 39.8470, lng: -86.2956, zone: "Westside", capacity: 50 },
-  { name: "Riverside Regional Park", address: "2420 E Riverside Dr, Indianapolis, IN", lat: 39.8197, lng: -86.1196, zone: "Westside", capacity: 40 },
-  { name: "Krannert Park", address: "605 S High School Rd, Indianapolis, IN", lat: 39.7624, lng: -86.2588, zone: "Westside", capacity: 35 },
-
-  // Far Eastside
-  { name: "Skiles Test Park", address: "3701 Mitthoeffer Rd, Indianapolis, IN", lat: 39.8075, lng: -85.9811, zone: "Far Eastside", capacity: 30 },
-  { name: "Post Road Community Park", address: "1313 S Post Rd, Indianapolis, IN", lat: 39.7470, lng: -85.9941, zone: "Far Eastside", capacity: 30 },
-
-  // Midtown
-  { name: "Watkins Park", address: "2360 Dr. Martin Luther King Jr St, Indianapolis, IN", lat: 39.7855, lng: -86.1610, zone: "Midtown", capacity: 30 },
-  { name: "Tarkington Park", address: "45 W 40th St, Indianapolis, IN", lat: 39.8211, lng: -86.1607, zone: "Midtown", capacity: 35 },
-  { name: "Crown Hill", address: "3402 Boulevard Pl, Indianapolis, IN", lat: 39.8181, lng: -86.1680, zone: "Midtown", capacity: 25 },
+  // Priority Tier 6 — Coverage Zones
+  { name: "Spades Park", address: "1800 Nowland Ave, Indianapolis, IN", lat: 39.7650, lng: -86.1100, zone: "East", capacity: 20 },
+  { name: "Bertha Ross Park", address: "3700 N Michigan Rd, Indianapolis, IN", lat: 39.8180, lng: -86.1850, zone: "Near North", capacity: 20 },
+  { name: "Northwestway Park", address: "5253 W 62nd St, Indianapolis, IN", lat: 39.8538, lng: -86.2254, zone: "Northwest", capacity: 25 },
+  { name: "Thatcher Park", address: "4649 W Vermont St, Indianapolis, IN", lat: 39.7500, lng: -86.2000, zone: "West", capacity: 20 },
+  { name: "Skiles Test Park", address: "3701 Mitthoeffer Rd, Indianapolis, IN", lat: 39.8075, lng: -85.9811, zone: "Far East", capacity: 20 },
 ] as const;
 
 export const TSHIRT_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL"] as const;
@@ -60,7 +52,7 @@ export const FAQ_CATEGORIES = [
     items: [
       {
         question: "What is Indy Street Sweep?",
-        answer: "Indy Street Sweep is a citywide Day of Caring on July 7, 2026, where 777 volunteers will gather across 20-30 locations to clean up Indianapolis. It's one massive morning of neighbors serving neighbors.",
+        answer: "Indy Street Sweep is a citywide Day of Caring on July 7, 2026, where 777 volunteers will gather across 25 locations to clean up Indianapolis. It's one massive morning of neighbors serving neighbors.",
       },
       {
         question: "When is the event?",
