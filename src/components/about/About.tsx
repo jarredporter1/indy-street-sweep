@@ -8,7 +8,7 @@ export function About() {
         <div className="lg:max-w-[50%] flex flex-col justify-between gap-10">
           <p className="font-heading text-3xl sm:text-4xl md:text-[2.75rem] font-semibold leading-[1.25]">
             <span className="text-indy-navy">Indy Street Sweep is a citywide Day of Caring bringing together 777 volunteers on 7/7 to clean up Indianapolis.</span>{" "}
-            <span className="text-gray-400">One morning. 20+ locations.</span>
+            <span className="text-gray-400">One morning. 25 locations.</span>
           </p>
 
           {/* Stats in white boxes */}
