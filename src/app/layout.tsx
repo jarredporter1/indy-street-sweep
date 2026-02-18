@@ -15,39 +15,40 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Street Sweep Indy | 777 Volunteers. One City. One Morning.",
+  title: "Street Sweep Indy | 777 Volunteers Cleaning Up Indianapolis on 7/7",
   description:
-    "Join 777 neighbors on July 7, 2026 to clean up Indianapolis. Pick a park, grab your crew, and be part of the biggest volunteer day Indy has ever seen.",
+    "Join 777 neighbors on July 7, 2026 for the biggest volunteer cleanup day Indianapolis has ever seen. Pick a park, grab your crew, and make a difference in just two hours.",
   keywords: [
-    "Indianapolis",
-    "volunteer",
-    "community cleanup",
-    "street sweep",
-    "day of caring",
+    "Indianapolis volunteer",
+    "community cleanup Indianapolis",
+    "street sweep Indy",
+    "day of caring 777",
+    "Indianapolis parks cleanup",
+    "volunteer Indianapolis 2026",
     "Citizens 7",
-    "Indy volunteers",
   ],
   openGraph: {
-    title: "Street Sweep Indy | July 7, 2026",
+    title: "Street Sweep Indy",
     description:
-      "777 volunteers. 25 parks. 1 city. Join the biggest cleanup day Indianapolis has ever seen.",
+      "777 volunteers. 25 parks. 1 city. July 7, 2026. Join the biggest cleanup day Indianapolis has ever seen.",
     type: "website",
     url: "https://indystreetsweep.com",
+    siteName: "Street Sweep Indy",
     images: [
       {
-        url: "/images/og-image.png",
-        width: 2160,
-        height: 3840,
-        alt: "Street Sweep Indy",
+        url: "/images/social sharing street sweep.png",
+        width: 1200,
+        height: 630,
+        alt: "Street Sweep Indy - 777 volunteers cleaning up Indianapolis",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Street Sweep Indy | July 7, 2026",
+    title: "Street Sweep Indy",
     description:
-      "777 volunteers. 25 parks. 1 city. Join the biggest cleanup day Indianapolis has ever seen.",
-    images: ["/images/og-image.png"],
+      "777 volunteers. 25 parks. 1 city. July 7, 2026. Join the biggest cleanup day Indianapolis has ever seen.",
+    images: ["/images/social sharing street sweep.png"],
   },
 };
 
