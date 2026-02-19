@@ -249,7 +249,7 @@ export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
             search={search}
             onSearchChange={setSearch}
             onSelectPoint={handleMobileSelectPoint}
-            onSignUp={(id) => open(id)}
+            onSignUp={(id) => { setSheetState("peek"); open(id); }}
             totalCount={totalFiltered}
           />
         </div>
