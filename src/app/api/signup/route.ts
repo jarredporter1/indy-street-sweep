@@ -3,8 +3,33 @@ import { signupSchema } from "@/lib/validation";
 import { addSignup, getRallyPointById } from "@/lib/sheets";
 import { EVENT_DATE_DISPLAY, EVENT_TIME_DISPLAY } from "@/lib/constants";
 
+/* ─── Simple in-memory rate limiter ─── */
+const rateMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 5;          // max signups
+const RATE_WINDOW_MS = 60_000; // per minute
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return false;
+  }
+  entry.count += 1;
+  return entry.count > RATE_LIMIT;
+}
+
 export async function POST(request: NextRequest) {
   try {
+    // Rate limit by IP
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { error: "Too many signups. Please wait a minute and try again." },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
     const result = signupSchema.safeParse(body);
 
@@ -73,7 +98,7 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (err) {
-    console.error("Signup route error:", err);
+    console.error("Signup route error:", err instanceof Error ? err.message : "Unknown error");
     return NextResponse.json(
       { error: "Failed to save signup. Please try again." },
       { status: 500 }

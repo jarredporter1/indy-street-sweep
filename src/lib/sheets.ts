@@ -78,6 +78,13 @@ export async function getVolunteerCount() {
   return total;
 }
 
+/** Prevent Google Sheets formula injection by prefixing dangerous characters with a single quote. */
+function sanitizeForSheet(value: string): string {
+  if (typeof value !== "string") return value;
+  if (/^[=+\-@\t\r]/.test(value)) return "'" + value;
+  return value;
+}
+
 export async function addSignup(data: {
   name: string;
   email: string;
@@ -100,15 +107,15 @@ export async function addSignup(data: {
     requestBody: {
       values: [
         [
-          data.name,
-          data.email,
-          data.phone || "",
+          sanitizeForSheet(data.name),
+          sanitizeForSheet(data.email),
+          sanitizeForSheet(data.phone || ""),
           data.groupSize,
-          data.church || "",
+          sanitizeForSheet(data.church || ""),
           data.rallyPointId,
           data.tshirtSize,
           data.role,
-          data.previousExperience || "",
+          sanitizeForSheet(data.previousExperience || ""),
           data.trialRunAvailable ?? "",
           now,
         ],
