@@ -19,6 +19,7 @@ export function useRallyPoints(initialData: RallyPointWithCount[]) {
   }, []);
 
   useEffect(() => {
+    fetchRallyPoints(); // fetch immediately on mount
     const interval = setInterval(fetchRallyPoints, 30000);
     return () => clearInterval(interval);
   }, [fetchRallyPoints]);

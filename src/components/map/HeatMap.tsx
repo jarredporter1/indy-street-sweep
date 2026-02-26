@@ -28,7 +28,7 @@ function FlyToPoint({ lat, lng }: { lat: number; lng: number }) {
 
 export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
   const rallyPoints = useRallyPoints(initialRallyPoints);
-  const { open } = useSignUpModal();
+  const { open, isOpen: signupModalOpen } = useSignUpModal();
   const [search, setSearch] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -239,22 +239,24 @@ export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
           </div>
         )}
 
-        {/* ─── Mobile bottom sheet (hidden on desktop) ─── */}
-        <div className="lg:hidden">
-          <MobileBottomSheet
-            state={sheetState}
-            onStateChange={setSheetState}
-            filteredZones={filtered}
-            selectedPoint={selectedPoint ?? null}
-            search={search}
-            onSearchChange={setSearch}
-            onSelectPoint={handleMobileSelectPoint}
-            onSignUp={(id) => { setSheetState("peek"); open(id); }}
-            totalCount={totalFiltered}
-          />
-        </div>
+        {/* ─── Mobile bottom sheet (hidden on desktop, hidden when signup modal open) ─── */}
+        {!signupModalOpen && (
+          <div className="lg:hidden">
+            <MobileBottomSheet
+              state={sheetState}
+              onStateChange={setSheetState}
+              filteredZones={filtered}
+              selectedPoint={selectedPoint ?? null}
+              search={search}
+              onSearchChange={setSearch}
+              onSelectPoint={handleMobileSelectPoint}
+              onSignUp={(id) => { setSheetState("peek"); open(id); }}
+              totalCount={totalFiltered}
+            />
+          </div>
+        )}
 
-        <MapLegend />
+        {!signupModalOpen && <MapLegend />}
       </div>
     </div>
   );
