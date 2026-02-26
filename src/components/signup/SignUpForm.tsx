@@ -143,42 +143,126 @@ export function SignUpForm({ rallyPoints, preselectedRallyPointId, onClose }: Si
   }
 
   return (
-    <div className="p-6 sm:p-8 space-y-6">
-      {/* Header */}
-      <div className="text-center">
-        <h2 className="font-heading text-xl font-black text-indy-navy">Sign Up to Serve</h2>
-        <p className="text-sm text-gray-500 mt-1">
-          {step === "role" && "Choose how you want to help"}
-          {step === "location" && "Select where you want to serve"}
-          {step === "details" && "Tell us about yourself"}
-        </p>
-      </div>
+    <div className="flex flex-col min-h-0 flex-1">
+      {/* Scrollable content */}
+      <div className="p-6 sm:p-8 space-y-6 overflow-y-auto flex-1 modal-scrollbar">
+        {/* Header */}
+        <div className="text-center">
+          <h2 className="font-heading text-xl font-black text-indy-navy">Sign Up to Serve</h2>
+          <p className="text-sm text-gray-500 mt-1">
+            {step === "role" && "Choose how you want to help"}
+            {step === "location" && "Select where you want to serve"}
+            {step === "details" && "Tell us about yourself"}
+          </p>
+        </div>
 
-      {/* Step indicator */}
-      <div className="flex items-center justify-center gap-2">
-        {["role", "location", "details"].map((s, i) => (
-          <div
-            key={s}
-            className={`h-1.5 rounded-full transition-all ${
-              s === step ? "w-8 bg-indy-red" : i < ["role", "location", "details"].indexOf(step) ? "w-8 bg-indy-navy" : "w-8 bg-gray-200"
-            }`}
-          />
-        ))}
-      </div>
+        {/* Step indicator */}
+        <div className="flex items-center justify-center gap-2">
+          {["role", "location", "details"].map((s, i) => (
+            <div
+              key={s}
+              className={`h-1.5 rounded-full transition-all ${
+                s === step ? "w-8 bg-indy-red" : i < ["role", "location", "details"].indexOf(step) ? "w-8 bg-indy-navy" : "w-8 bg-gray-200"
+              }`}
+            />
+          ))}
+        </div>
 
-      {/* Step content */}
-      {step === "role" && (
-        <RoleSelector value={form.role} onChange={handleRoleSelect} />
-      )}
+        {/* Step content */}
+        {step === "role" && (
+          <RoleSelector value={form.role} onChange={handleRoleSelect} />
+        )}
 
-      {step === "location" && (
-        <>
+        {step === "location" && (
           <LocationPicker
             rallyPoints={rallyPoints}
             value={form.rallyPointId}
             onChange={handleLocationSelect}
             error={errors.rallyPointId}
           />
+        )}
+
+        {step === "details" && (
+          <div className="space-y-4">
+            {errors.form && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
+                {errors.form}
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Input
+                label="Full Name"
+                placeholder="Your name"
+                value={form.name}
+                onChange={(e) => updateForm("name", e.target.value)}
+                error={errors.name}
+                required
+              />
+              <Input
+                label="Email"
+                type="email"
+                placeholder="you@example.com"
+                value={form.email}
+                onChange={(e) => updateForm("email", e.target.value)}
+                error={errors.email}
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Input
+                label="Phone (optional)"
+                type="tel"
+                placeholder="(317) 555-1234"
+                value={form.phone}
+                onChange={(e) => updateForm("phone", e.target.value)}
+                error={errors.phone}
+              />
+              <Input
+                label="Group Size"
+                type="number"
+                min={1}
+                max={50}
+                value={form.groupSize}
+                onChange={(e) => updateForm("groupSize", parseInt(e.target.value) || 1)}
+                error={errors.groupSize}
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Input
+                label="Church / Organization (optional)"
+                placeholder="Your church or group name"
+                value={form.church}
+                onChange={(e) => updateForm("church", e.target.value)}
+              />
+              <Select
+                label="T-Shirt Size"
+                value={form.tshirtSize}
+                onChange={(e) => updateForm("tshirtSize", e.target.value)}
+                placeholder="Select size"
+                options={TSHIRT_SIZES.map((s) => ({ value: s, label: s }))}
+                error={errors.tshirtSize}
+              />
+            </div>
+
+            {form.role === "site_leader" && (
+              <SiteLeaderFields
+                previousExperience={form.previousExperience}
+                trialRunAvailable={form.trialRunAvailable}
+                onExperienceChange={(v) => updateForm("previousExperience", v)}
+                onTrialRunChange={(v) => updateForm("trialRunAvailable", v)}
+                error={errors.previousExperience}
+              />
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Sticky footer buttons — always visible, never hidden behind scroll */}
+      {step === "location" && (
+        <div className="px-6 sm:px-8 py-4 border-t border-gray-100 bg-white rounded-b-2xl">
           <Button
             variant="ghost"
             size="sm"
@@ -187,100 +271,25 @@ export function SignUpForm({ rallyPoints, preselectedRallyPointId, onClose }: Si
           >
             Back
           </Button>
-        </>
+        </div>
       )}
 
       {step === "details" && (
-        <div className="space-y-4">
-          {errors.form && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
-              {errors.form}
-            </div>
-          )}
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input
-              label="Full Name"
-              placeholder="Your name"
-              value={form.name}
-              onChange={(e) => updateForm("name", e.target.value)}
-              error={errors.name}
-              required
-            />
-            <Input
-              label="Email"
-              type="email"
-              placeholder="you@example.com"
-              value={form.email}
-              onChange={(e) => updateForm("email", e.target.value)}
-              error={errors.email}
-              required
-            />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input
-              label="Phone (optional)"
-              type="tel"
-              placeholder="(317) 555-1234"
-              value={form.phone}
-              onChange={(e) => updateForm("phone", e.target.value)}
-              error={errors.phone}
-            />
-            <Input
-              label="Group Size"
-              type="number"
-              min={1}
-              max={50}
-              value={form.groupSize}
-              onChange={(e) => updateForm("groupSize", parseInt(e.target.value) || 1)}
-              error={errors.groupSize}
-            />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input
-              label="Church / Organization (optional)"
-              placeholder="Your church or group name"
-              value={form.church}
-              onChange={(e) => updateForm("church", e.target.value)}
-            />
-            <Select
-              label="T-Shirt Size"
-              value={form.tshirtSize}
-              onChange={(e) => updateForm("tshirtSize", e.target.value)}
-              placeholder="Select size"
-              options={TSHIRT_SIZES.map((s) => ({ value: s, label: s }))}
-              error={errors.tshirtSize}
-            />
-          </div>
-
-          {form.role === "site_leader" && (
-            <SiteLeaderFields
-              previousExperience={form.previousExperience}
-              trialRunAvailable={form.trialRunAvailable}
-              onExperienceChange={(v) => updateForm("previousExperience", v)}
-              onTrialRunChange={(v) => updateForm("trialRunAvailable", v)}
-              error={errors.previousExperience}
-            />
-          )}
-
-          <div className="flex gap-3 pt-2">
-            <Button
-              variant="ghost"
-              onClick={() => setStep(preselectedRallyPointId ? "role" : "location")}
-              className="flex-1"
-            >
-              Back
-            </Button>
-            <Button
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-              className="flex-1"
-            >
-              {isSubmitting ? "Signing Up..." : "Sign Up"}
-            </Button>
-          </div>
+        <div className="px-6 sm:px-8 py-4 border-t border-gray-100 bg-white rounded-b-2xl flex gap-3">
+          <Button
+            variant="ghost"
+            onClick={() => setStep(preselectedRallyPointId ? "role" : "location")}
+            className="flex-1"
+          >
+            Back
+          </Button>
+          <Button
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+            className="flex-1"
+          >
+            {isSubmitting ? "Signing Up..." : "Sign Up"}
+          </Button>
         </div>
       )}
     </div>
