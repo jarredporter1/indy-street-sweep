@@ -33,7 +33,7 @@ interface FormState {
 }
 
 export function SignUpForm({ rallyPoints, preselectedRallyPointId, onClose }: SignUpFormProps) {
-  const [step, setStep] = useState<Step>(preselectedRallyPointId ? "role" : "role");
+  const [step, setStep] = useState<Step>("role");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [confirmation, setConfirmation] = useState<SignupConfirmation | null>(null);
@@ -141,6 +141,11 @@ export function SignUpForm({ rallyPoints, preselectedRallyPointId, onClose }: Si
   if (step === "confirmation" && confirmation) {
     return <ConfirmationView confirmation={confirmation} onClose={onClose} />;
   }
+
+  const selectedRallyPoint = rallyPoints.find((rp) => rp.id === form.rallyPointId);
+  const isLocationFull = selectedRallyPoint
+    ? selectedRallyPoint.volunteer_count >= selectedRallyPoint.capacity
+    : false;
 
   return (
     <div className="flex flex-col min-h-0 flex-1">
@@ -275,21 +280,28 @@ export function SignUpForm({ rallyPoints, preselectedRallyPointId, onClose }: Si
       )}
 
       {step === "details" && (
-        <div className="px-6 sm:px-8 py-4 border-t border-gray-100 bg-white rounded-b-2xl flex gap-3">
-          <Button
-            variant="ghost"
-            onClick={() => setStep(preselectedRallyPointId ? "role" : "location")}
-            className="flex-1"
-          >
-            Back
-          </Button>
-          <Button
-            onClick={handleSubmit}
-            disabled={isSubmitting}
-            className="flex-1"
-          >
-            {isSubmitting ? "Signing Up..." : "Sign Up"}
-          </Button>
+        <div className="px-6 sm:px-8 py-4 border-t border-gray-100 bg-white rounded-b-2xl space-y-3">
+          {isLocationFull && (
+            <p className="text-sm text-center text-red-600 font-medium">
+              {selectedRallyPoint?.name} is full — please go back and choose another location.
+            </p>
+          )}
+          <div className="flex gap-3">
+            <Button
+              variant="ghost"
+              onClick={() => setStep(preselectedRallyPointId ? "role" : "location")}
+              className="flex-1"
+            >
+              Back
+            </Button>
+            <Button
+              onClick={handleSubmit}
+              disabled={isSubmitting || isLocationFull}
+              className="flex-1"
+            >
+              {isSubmitting ? "Signing Up..." : "Sign Up"}
+            </Button>
+          </div>
         </div>
       )}
     </div>

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import type { RallyPointWithCount } from "@/types";
-import { getDensityLevel, DENSITY_COLORS, DENSITY_LABELS } from "@/lib/utils";
+import { getDensityLevel, DENSITY_COLORS, DENSITY_TEXT_COLORS, DENSITY_LABELS } from "@/lib/utils";
 
 export type SheetState = "peek" | "list" | "detail";
 
@@ -260,8 +260,11 @@ function ListContent({
                   >
                     {/* Density circle */}
                     <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-white text-xs font-bold"
-                      style={{ backgroundColor: isFull ? "#9ca3af" : color }}
+                      className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-xs font-bold"
+                      style={{
+                        backgroundColor: isFull ? "#9ca3af" : color,
+                        color: isFull ? "white" : DENSITY_TEXT_COLORS[density],
+                      }}
                     >
                       {rp.volunteer_count}
                     </div>

@@ -16,6 +16,13 @@ export const DENSITY_COLORS: Record<DensityLevel, string> = {
   high: "#013d0e",
 };
 
+// Low density background is light — needs dark text. Medium/high are dark enough for white.
+export const DENSITY_TEXT_COLORS: Record<DensityLevel, string> = {
+  low: "#013d0e",
+  medium: "white",
+  high: "white",
+};
+
 export const DENSITY_LABELS: Record<DensityLevel, string> = {
   low: "Needs volunteers",
   medium: "Getting there",

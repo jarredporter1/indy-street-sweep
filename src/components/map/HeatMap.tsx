@@ -9,7 +9,7 @@ import { MapLegend } from "./MapLegend";
 import { MobileBottomSheet, type SheetState } from "./MobileBottomSheet";
 import { useSignUpModal } from "@/hooks/useSignUpModal";
 import { useRallyPoints } from "@/hooks/useRallyPoints";
-import { getDensityLevel, DENSITY_COLORS, DENSITY_LABELS } from "@/lib/utils";
+import { getDensityLevel, DENSITY_COLORS, DENSITY_TEXT_COLORS, DENSITY_LABELS } from "@/lib/utils";
 
 interface HeatMapProps {
   initialRallyPoints: RallyPointWithCount[];
@@ -134,8 +134,8 @@ export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
                     }`}
                   >
                     <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-white text-xs font-bold"
-                      style={{ backgroundColor: color }}
+                      className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-xs font-bold"
+                      style={{ backgroundColor: color, color: DENSITY_TEXT_COLORS[density] }}
                     >
                       {rp.volunteer_count}
                     </div>
