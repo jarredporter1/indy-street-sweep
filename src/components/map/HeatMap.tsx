@@ -8,11 +8,10 @@ import { RallyPointMarker } from "./RallyPointMarker";
 import { MapLegend } from "./MapLegend";
 import { MobileBottomSheet, type SheetState } from "./MobileBottomSheet";
 import { useSignUpModal } from "@/hooks/useSignUpModal";
-import { useRallyPoints } from "@/hooks/useRallyPoints";
 import { getDensityLevel, DENSITY_COLORS, DENSITY_TEXT_COLORS, DENSITY_LABELS } from "@/lib/utils";
 
 interface HeatMapProps {
-  initialRallyPoints: RallyPointWithCount[];
+  rallyPoints: RallyPointWithCount[];
 }
 
 const INDY_CENTER = { lat: 39.7684, lng: -86.1581 };
@@ -26,8 +25,7 @@ function FlyToPoint({ lat, lng }: { lat: number; lng: number }) {
   return null;
 }
 
-export default function HeatMap({ initialRallyPoints }: HeatMapProps) {
-  const rallyPoints = useRallyPoints(initialRallyPoints);
+export default function HeatMap({ rallyPoints }: HeatMapProps) {
   const { open, isOpen: signupModalOpen } = useSignUpModal();
   const [search, setSearch] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);

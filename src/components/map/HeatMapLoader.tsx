@@ -16,13 +16,13 @@ const HeatMap = dynamic(() => import("./HeatMap"), {
 });
 
 interface HeatMapLoaderProps {
-  initialRallyPoints: RallyPointWithCount[];
+  rallyPoints: RallyPointWithCount[];
 }
 
-export function HeatMapLoader({ initialRallyPoints }: HeatMapLoaderProps) {
+export function HeatMapLoader({ rallyPoints }: HeatMapLoaderProps) {
   return (
     <div className="w-full h-full">
-      <HeatMap initialRallyPoints={initialRallyPoints} />
+      <HeatMap rallyPoints={rallyPoints} />
     </div>
   );
 }

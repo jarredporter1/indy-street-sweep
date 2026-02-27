@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { RallyPointWithCount } from "@/types";
 import { RALLY_POINT_SEED_DATA, VOLUNTEER_GOAL } from "@/lib/constants";
 import { SignUpModalContext } from "@/hooks/useSignUpModal";
+import { useRallyPoints } from "@/hooks/useRallyPoints";
 import { useVolunteerCount } from "@/hooks/useVolunteerCount";
 import { HeatMapLoader } from "@/components/map/HeatMapLoader";
 import { SignUpModal } from "@/components/signup/SignUpModal";
@@ -29,29 +30,10 @@ function getFallbackRallyPoints(): RallyPointWithCount[] {
 export default function MapPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [preselectedRallyPointId, setPreselectedRallyPointId] = useState<string | null>(null);
-  const [initialRallyPoints, setInitialRallyPoints] = useState<RallyPointWithCount[]>(getFallbackRallyPoints());
-  const [initialCount, setInitialCount] = useState(0);
-  const count = useVolunteerCount(initialCount);
 
-  useEffect(() => {
-    fetch("/api/rally-points")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.rallyPoints?.length > 0) {
-          setInitialRallyPoints(data.rallyPoints);
-        }
-      })
-      .catch(() => {});
-
-    fetch("/api/volunteer-count")
-      .then((res) => res.json())
-      .then((data) => {
-        if (typeof data.count === "number") {
-          setInitialCount(data.count);
-        }
-      })
-      .catch(() => {});
-  }, []);
+  // Single source of truth — one fetch on mount, one poll every 30s
+  const rallyPoints = useRallyPoints(getFallbackRallyPoints());
+  const count = useVolunteerCount(0);
 
   const open = useCallback((rallyPointId?: string) => {
     setPreselectedRallyPointId(rallyPointId || null);
@@ -114,10 +96,10 @@ export default function MapPage() {
 
         {/* Map fills remaining space */}
         <div className="flex-1 min-h-0">
-          <HeatMapLoader initialRallyPoints={initialRallyPoints} />
+          <HeatMapLoader rallyPoints={rallyPoints} />
         </div>
 
-        <SignUpModal initialRallyPoints={initialRallyPoints} />
+        <SignUpModal rallyPoints={rallyPoints} />
       </div>
     </SignUpModalContext.Provider>
   );

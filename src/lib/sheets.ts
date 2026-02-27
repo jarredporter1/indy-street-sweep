@@ -122,6 +122,31 @@ export async function addSignup(data: {
       ],
     },
   });
+
+  if (data.role === "site_leader") {
+    await assignSiteLeader(data.rallyPointId, data.email);
+  }
+}
+
+async function assignSiteLeader(rallyPointId: string, email: string) {
+  const sheets = getSheets();
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SHEET_ID,
+    range: "RallyPoints!A2:A",
+  });
+
+  const rows = res.data.values || [];
+  const rowIndex = rows.findIndex((row) => row[0] === rallyPointId);
+  if (rowIndex === -1) return;
+
+  // Column I = site_leader_id, row offset +2 for header + 0-index
+  const cell = `RallyPoints!I${rowIndex + 2}`;
+  await sheets.spreadsheets.values.update({
+    spreadsheetId: SHEET_ID,
+    range: cell,
+    valueInputOption: "RAW",
+    requestBody: { values: [[sanitizeForSheet(email)]] },
+  });
 }
 
 export async function getRallyPointById(id: string) {
