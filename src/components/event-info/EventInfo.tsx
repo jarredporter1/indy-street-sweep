@@ -11,12 +11,19 @@ const FEATURES = [
   {
     icon: "02",
     title: "Show Up",
-    description: "Meet at your rally point at 7:45 AM. Your site leader will get you started.",
+    description: "Just bring comfortable clothes, closed-toe shoes, sunscreen, and a water bottle. We handle the rest.",
+    items: [
+      "Gloves (courtesy of Indy Parks)",
+      "Trash bags (courtesy of Indy Parks)",
+      "Safety vests",
+      "Truck pickup for all collected trash",
+      "Site leader training & support",
+    ],
   },
   {
     icon: "03",
     title: "Clean Up",
-    description: "Two hours of impact, together. We provide gloves, trash bags, safety vests, and truck pickup — just show up ready to work.",
+    description: "Two hours of impact, together. Your site leader keeps things moving — just follow their lead.",
   },
   {
     icon: "04",
@@ -72,6 +79,18 @@ export function EventInfo() {
                 <p className="text-white/60 leading-relaxed">
                   {feature.description}
                 </p>
+                {"items" in feature && feature.items && (
+                  <ul className="space-y-1.5 pt-1">
+                    {feature.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2 text-sm text-white/50">
+                        <svg className="w-4 h-4 text-indy-gold shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 {"link" in feature && feature.link && (
                   <Link
                     href={feature.link.href}
