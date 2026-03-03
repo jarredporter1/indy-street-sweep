@@ -31,7 +31,7 @@ function getMilestoneEmail(milestone: number, count: number): MilestoneEmail | n
   const pct = ((count / 777) * 100).toFixed(1);
   const remaining = 777 - count;
   const wrap = (body: string) =>
-    `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a2e;line-height:1.6;">${body}<p>Max</p></div>`;
+    `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a2e;line-height:1.6;">${body}<p>Trace</p></div>`;
 
   switch (milestone) {
     case 50:
