@@ -23,7 +23,7 @@ export function About() {
             </div>
             <div className="bg-white rounded-xl p-3 sm:p-5">
               <p className="font-heading text-3xl sm:text-5xl font-bold text-indy-gold">
-                25+
+                25
               </p>
               <p className="text-xs text-gray-500 mt-1">
                 Rally points

@@ -5,26 +5,25 @@ export function cn(...classes: (string | boolean | undefined | null)[]): string 
 }
 
 export function getDensityLevel(count: number): DensityLevel {
-  if (count <= 10) return "low";
+  if (count <= 15) return "low";
   if (count <= 25) return "medium";
   return "high";
 }
 
 export const DENSITY_COLORS: Record<DensityLevel, string> = {
-  low: "#8fcea0",
-  medium: "#2ea043",
-  high: "#013d0e",
+  low: "#dc2626",
+  medium: "#f59e0b",
+  high: "#16a34a",
 };
 
-// Low density background is light — needs dark text. Medium/high are dark enough for white.
 export const DENSITY_TEXT_COLORS: Record<DensityLevel, string> = {
-  low: "#013d0e",
+  low: "white",
   medium: "white",
   high: "white",
 };
 
 export const DENSITY_LABELS: Record<DensityLevel, string> = {
-  low: "Needs volunteers",
+  low: "Needs help",
   medium: "Getting there",
   high: "Well-staffed",
 };

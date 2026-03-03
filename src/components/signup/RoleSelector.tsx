@@ -22,7 +22,7 @@ export function RoleSelector({ value, onChange }: RoleSelectorProps) {
           }`}
         >
           <div className="text-2xl mb-2">🧹</div>
-          <h4 className="font-bold text-indy-navy">I want to volunteer</h4>
+          <h4 className="font-bold text-indy-navy">Sign Up to Volunteer</h4>
           <p className="text-sm text-gray-500 mt-1">
             Join a team at a rally point and help clean up your neighborhood.
           </p>
@@ -38,9 +38,9 @@ export function RoleSelector({ value, onChange }: RoleSelectorProps) {
           }`}
         >
           <div className="text-2xl mb-2">📋</div>
-          <h4 className="font-bold text-indy-navy">I want to lead a site</h4>
+          <h4 className="font-bold text-indy-navy">Lead a Rally Point</h4>
           <p className="text-sm text-gray-500 mt-1">
-            Coordinate volunteers at a rally point. We&apos;ll train you beforehand.
+            Manage ~30 volunteers at one park. We&apos;ll train you beforehand.
           </p>
         </button>
       </div>

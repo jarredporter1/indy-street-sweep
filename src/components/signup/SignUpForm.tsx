@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import type { RallyPointWithCount, SignupConfirmation } from "@/types";
+import type { RallyPointWithCount, SignupConfirmation, GroupMember } from "@/types";
 import { TSHIRT_SIZES } from "@/lib/constants";
 import { RoleSelector } from "./RoleSelector";
 import { LocationPicker } from "./LocationPicker";
 import { SiteLeaderFields } from "./SiteLeaderFields";
+import { GroupMemberFields } from "./GroupMemberFields";
 import { ConfirmationView } from "./ConfirmationView";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
@@ -28,7 +29,13 @@ interface FormState {
   groupSize: number;
   church: string;
   tshirtSize: string;
-  previousExperience: string;
+  bringingOthers: boolean;
+  groupMembers: GroupMember[];
+  // Site leader fields
+  previousSweep: string;
+  meetingAvailability: string;
+  meetingFormat: string;
+  expectedVolunteers: string;
 }
 
 export function SignUpForm({ rallyPoints, preselectedRallyPointId, onClose }: SignUpFormProps) {
@@ -46,7 +53,12 @@ export function SignUpForm({ rallyPoints, preselectedRallyPointId, onClose }: Si
     groupSize: 1,
     church: "",
     tshirtSize: "",
-    previousExperience: "",
+    bringingOthers: false,
+    groupMembers: [],
+    previousSweep: "",
+    meetingAvailability: "",
+    meetingFormat: "",
+    expectedVolunteers: "",
   });
 
   function updateForm<K extends keyof FormState>(key: K, value: FormState[K]) {
@@ -54,6 +66,50 @@ export function SignUpForm({ rallyPoints, preselectedRallyPointId, onClose }: Si
     setErrors((prev) => {
       const next = { ...prev };
       delete next[key];
+      return next;
+    });
+  }
+
+  function handleBringingOthersToggle(bringing: boolean) {
+    updateForm("bringingOthers", bringing);
+    if (bringing) {
+      // Default to 2 total (1 additional member)
+      updateForm("groupSize", 2);
+      updateForm("groupMembers", [{ name: "", email: "" }]);
+    } else {
+      updateForm("groupSize", 1);
+      updateForm("groupMembers", []);
+    }
+  }
+
+  function handleGroupSizeChange(total: number) {
+    const additionalCount = total - 1;
+    const currentMembers = form.groupMembers;
+    let newMembers: GroupMember[];
+
+    if (additionalCount > currentMembers.length) {
+      // Add empty slots
+      newMembers = [
+        ...currentMembers,
+        ...Array.from({ length: additionalCount - currentMembers.length }, () => ({
+          name: "",
+          email: "",
+        })),
+      ];
+    } else {
+      // Trim excess
+      newMembers = currentMembers.slice(0, additionalCount);
+    }
+
+    updateForm("groupSize", total);
+    updateForm("groupMembers", newMembers);
+  }
+
+  function handleSiteLeaderFieldChange(field: string, value: string) {
+    updateForm(field as keyof FormState, value as never);
+    setErrors((prev) => {
+      const next = { ...prev };
+      delete next[field];
       return next;
     });
   }
@@ -79,10 +135,26 @@ export function SignUpForm({ rallyPoints, preselectedRallyPointId, onClose }: Si
     if (!form.email.trim()) newErrors.email = "Email is required";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       newErrors.email = "Please enter a valid email";
-    if (!form.tshirtSize) newErrors.tshirtSize = "Please select a size";
+    if (!form.phone.trim()) newErrors.phone = "Phone number is required";
+    else if (!/^\+?[\d\s()\-]{7,15}$/.test(form.phone))
+      newErrors.phone = "Please enter a valid phone number";
     if (form.groupSize < 1) newErrors.groupSize = "At least 1 person";
-    if (form.role === "site_leader" && !form.previousExperience.trim())
-      newErrors.previousExperience = "Please tell us about your experience";
+
+    // Validate first group member if bringing others
+    if (form.bringingOthers && form.groupMembers.length > 0) {
+      const first = form.groupMembers[0];
+      if (!first.name.trim()) newErrors["groupMembers.0.name"] = "Name is required";
+      if (!first.email.trim()) newErrors["groupMembers.0.email"] = "Email is required";
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(first.email))
+        newErrors["groupMembers.0.email"] = "Please enter a valid email";
+    }
+
+    // Site leader validations
+    if (form.role === "site_leader") {
+      if (!form.previousSweep) newErrors.previousSweep = "Please select an option";
+      if (!form.meetingAvailability) newErrors.meetingAvailability = "Please select your availability";
+      if (!form.meetingFormat) newErrors.meetingFormat = "Please select a format";
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -92,6 +164,11 @@ export function SignUpForm({ rallyPoints, preselectedRallyPointId, onClose }: Si
     setIsSubmitting(true);
     setErrors({});
 
+    // Filter out empty group members (keep only ones with both name and email filled)
+    const filledMembers = form.groupMembers.filter(
+      (m) => m.name.trim() && m.email.trim()
+    );
+
     try {
       const res = await fetch("/api/signup", {
         method: "POST",
@@ -99,13 +176,24 @@ export function SignUpForm({ rallyPoints, preselectedRallyPointId, onClose }: Si
         body: JSON.stringify({
           name: form.name.trim(),
           email: form.email.trim(),
-          phone: form.phone.trim() || undefined,
-          groupSize: form.groupSize,
+          phone: form.phone.trim(),
+          groupSize: form.bringingOthers ? 1 + filledMembers.length : 1,
           church: form.church.trim() || undefined,
-          tshirtSize: form.tshirtSize,
+          tshirtSize: form.tshirtSize || undefined,
           role: form.role,
           rallyPointId: form.rallyPointId,
-          previousExperience: form.previousExperience.trim() || undefined,
+          groupMembers: filledMembers.map((m) => ({
+            name: m.name.trim(),
+            email: m.email.trim(),
+          })),
+          ...(form.role === "site_leader" && {
+            previousSweep: form.previousSweep,
+            meetingAvailability: form.meetingAvailability,
+            meetingFormat: form.meetingFormat,
+            expectedVolunteers: form.expectedVolunteers
+              ? parseInt(form.expectedVolunteers)
+              : undefined,
+          }),
         }),
       });
 
@@ -214,33 +302,25 @@ export function SignUpForm({ rallyPoints, preselectedRallyPointId, onClose }: Si
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input
-                label="Phone (optional)"
+                label="Phone"
                 type="tel"
                 placeholder="(317) 555-1234"
                 value={form.phone}
                 onChange={(e) => updateForm("phone", e.target.value)}
                 error={errors.phone}
+                required
               />
-              <Input
-                label="Group Size"
-                type="number"
-                min={1}
-                max={50}
-                value={form.groupSize}
-                onChange={(e) => updateForm("groupSize", parseInt(e.target.value) || 1)}
-                error={errors.groupSize}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input
                 label="Church / Organization (optional)"
                 placeholder="Your church or group name"
                 value={form.church}
                 onChange={(e) => updateForm("church", e.target.value)}
               />
+            </div>
+
+            <div className="max-w-[200px]">
               <Select
-                label="T-Shirt Size"
+                label="T-Shirt Size (optional)"
                 value={form.tshirtSize}
                 onChange={(e) => updateForm("tshirtSize", e.target.value)}
                 placeholder="Select size"
@@ -249,11 +329,62 @@ export function SignUpForm({ rallyPoints, preselectedRallyPointId, onClose }: Si
               />
             </div>
 
+            {/* Group toggle */}
+            <div className="space-y-3">
+              <p className="block text-sm font-medium text-gray-700">
+                Are you bringing other people?
+              </p>
+              <div className="flex gap-3">
+                {([
+                  { value: true, label: "Yes" },
+                  { value: false, label: "No, just me" },
+                ] as const).map(({ value, label }) => (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() => handleBringingOthersToggle(value)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
+                      form.bringingOthers === value
+                        ? "bg-indy-navy text-white border-indy-navy"
+                        : "bg-white text-gray-700 border-gray-300 hover:border-gray-400"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Group size + member fields */}
+            {form.bringingOthers && (
+              <div className="space-y-4">
+                <div className="max-w-[200px]">
+                  <Select
+                    label="How many people total (including you)?"
+                    value={String(form.groupSize)}
+                    onChange={(e) => handleGroupSizeChange(parseInt(e.target.value))}
+                    options={Array.from({ length: 9 }, (_, i) => ({
+                      value: String(i + 2),
+                      label: String(i + 2),
+                    }))}
+                  />
+                </div>
+                <GroupMemberFields
+                  members={form.groupMembers}
+                  onChange={(members) => updateForm("groupMembers", members)}
+                  errors={errors}
+                />
+              </div>
+            )}
+
             {form.role === "site_leader" && (
               <SiteLeaderFields
-                previousExperience={form.previousExperience}
-                onExperienceChange={(v) => updateForm("previousExperience", v)}
-                error={errors.previousExperience}
+                previousSweep={form.previousSweep}
+                meetingAvailability={form.meetingAvailability}
+                meetingFormat={form.meetingFormat}
+                expectedVolunteers={form.expectedVolunteers}
+                onFieldChange={handleSiteLeaderFieldChange}
+                errors={errors}
               />
             )}
           </div>

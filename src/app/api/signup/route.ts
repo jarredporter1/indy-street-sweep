@@ -44,8 +44,21 @@ export async function POST(request: NextRequest) {
     }
 
     const data = result.data;
+    const groupMembers = data.groupMembers ?? [];
 
-    // Check capacity before allowing signup
+    // Enforce site leader fields when role is site_leader
+    if (data.role === "site_leader") {
+      const missing: Record<string, string[]> = {};
+      if (!data.previousSweep) missing.previousSweep = ["Please select an option"];
+      if (!data.meetingAvailability) missing.meetingAvailability = ["Please select your availability"];
+      if (!data.meetingFormat) missing.meetingFormat = ["Please select a format"];
+      if (Object.keys(missing).length > 0) {
+        return NextResponse.json({ errors: missing }, { status: 400 });
+      }
+    }
+
+    // Check capacity: primary registrant (1) + group members
+    const totalPeople = 1 + groupMembers.length;
     const { getRallyPointsWithCounts } = await import("@/lib/sheets");
     const rallyPoints = await getRallyPointsWithCounts();
     const targetPoint = rallyPoints.find((rp) => rp.id === data.rallyPointId);
@@ -57,7 +70,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (targetPoint.volunteer_count + data.groupSize > targetPoint.capacity) {
+    if (targetPoint.volunteer_count + totalPeople > targetPoint.capacity) {
       return NextResponse.json(
         { error: `${targetPoint.name} is full. Please choose another location.` },
         { status: 400 }
@@ -68,15 +81,44 @@ export async function POST(request: NextRequest) {
       name: data.name,
       email: data.email,
       phone: data.phone || null,
-      groupSize: data.groupSize,
+      groupSize: totalPeople,
       church: data.church || null,
-      tshirtSize: data.tshirtSize,
+      tshirtSize: data.tshirtSize || null,
       role: data.role,
       rallyPointId: data.rallyPointId,
-      previousExperience: data.previousExperience || null,
+      groupMembers,
+      previousSweep: data.previousSweep ?? null,
+      meetingAvailability: data.meetingAvailability ?? null,
+      meetingFormat: data.meetingFormat ?? null,
+      expectedVolunteers: data.expectedVolunteers ?? null,
     });
 
     const rallyPoint = await getRallyPointById(data.rallyPointId);
+
+    // Fire-and-forget webhook to Make.com for email automation
+    fetch(process.env.MAKE_SIGNUP_WEBHOOK_URL!, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: data.name,
+        email: data.email,
+        phone: data.phone || null,
+        groupSize: totalPeople,
+        church: data.church || null,
+        tshirtSize: data.tshirtSize || null,
+        role: data.role,
+        rallyPointName: rallyPoint?.name || "",
+        rallyPointAddress: rallyPoint?.address || "",
+        rallyPointZone: rallyPoint?.zone || "",
+        eventDate: EVENT_DATE_DISPLAY,
+        eventTime: EVENT_TIME_DISPLAY,
+        groupMembers: groupMembers.length > 0 ? groupMembers : undefined,
+        previousSweep: data.previousSweep ?? undefined,
+        meetingAvailability: data.meetingAvailability ?? undefined,
+        meetingFormat: data.meetingFormat ?? undefined,
+        expectedVolunteers: data.expectedVolunteers ?? undefined,
+      }),
+    }).catch((err) => console.error("Make webhook error:", err));
 
     return NextResponse.json(
       {
@@ -84,7 +126,7 @@ export async function POST(request: NextRequest) {
         confirmation: {
           name: data.name,
           role: data.role,
-          groupSize: data.groupSize,
+          groupSize: totalPeople,
           rallyPoint: {
             name: rallyPoint?.name || "",
             address: rallyPoint?.address || "",

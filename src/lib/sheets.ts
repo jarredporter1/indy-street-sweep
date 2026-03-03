@@ -41,7 +41,7 @@ export async function getSignups() {
   const sheets = getSheets();
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: SHEET_ID,
-    range: "Signups!A2:L",
+    range: "Signups!A2:P",
   });
   return res.data.values || [];
 }
@@ -85,41 +85,78 @@ function sanitizeForSheet(value: string): string {
   return value;
 }
 
-export async function addSignup(data: {
+interface SignupData {
   name: string;
   email: string;
   phone: string | null;
   groupSize: number;
   church: string | null;
-  tshirtSize: string;
+  tshirtSize: string | null;
   role: string;
   rallyPointId: string;
-  previousExperience: string | null;
-}) {
+  groupMembers: Array<{ name: string; email: string }>;
+  previousSweep: string | null;
+  meetingAvailability: string | null;
+  meetingFormat: string | null;
+  expectedVolunteers: number | null;
+}
+
+export async function addSignup(data: SignupData) {
   const sheets = getSheets();
   const now = new Date().toISOString();
+  const groupId = crypto.randomUUID();
+  const hasGroupMembers = data.groupMembers.length > 0;
+
+  // Build all rows to write
+  const rows: (string | number)[][] = [];
+
+  // Primary registrant row
+  rows.push([
+    sanitizeForSheet(data.name),                         // A: name
+    sanitizeForSheet(data.email),                        // B: email
+    sanitizeForSheet(data.phone || ""),                   // C: phone
+    1,                                                    // D: group_size (always 1 per row)
+    sanitizeForSheet(data.church || ""),                   // E: church
+    data.rallyPointId,                                    // F: rally_point_id
+    data.tshirtSize || "",                                // G: tshirt_size
+    data.role,                                            // H: role
+    "",                                                   // I: previous_experience (legacy)
+    now,                                                  // J: signed_up_at
+    hasGroupMembers ? groupId : "",                       // K: group_id
+    hasGroupMembers ? "TRUE" : "",                        // L: is_group_leader
+    data.previousSweep || "",                             // M: previous_sweep
+    data.meetingAvailability || "",                        // N: meeting_availability
+    data.meetingFormat || "",                              // O: meeting_format
+    data.expectedVolunteers ?? "",                         // P: expected_volunteers
+  ]);
+
+  // Additional group member rows
+  for (const member of data.groupMembers) {
+    rows.push([
+      sanitizeForSheet(member.name),                      // A: name
+      sanitizeForSheet(member.email),                     // B: email
+      "",                                                 // C: phone
+      1,                                                  // D: group_size
+      sanitizeForSheet(data.church || ""),                 // E: church (inherit from leader)
+      data.rallyPointId,                                  // F: rally_point_id
+      "",                                                 // G: tshirt_size
+      "volunteer",                                        // H: role
+      "",                                                 // I: previous_experience (legacy)
+      now,                                                // J: signed_up_at
+      groupId,                                            // K: group_id
+      "FALSE",                                            // L: is_group_leader
+      "",                                                 // M: previous_sweep
+      "",                                                 // N: meeting_availability
+      "",                                                 // O: meeting_format
+      "",                                                 // P: expected_volunteers
+    ]);
+  }
 
   await sheets.spreadsheets.values.append({
     spreadsheetId: SHEET_ID,
-    range: "Signups!A:L",
+    range: "Signups!A:P",
     valueInputOption: "RAW",
-    requestBody: {
-      values: [
-        [
-          sanitizeForSheet(data.name),
-          sanitizeForSheet(data.email),
-          sanitizeForSheet(data.phone || ""),
-          data.groupSize,
-          sanitizeForSheet(data.church || ""),
-          data.rallyPointId,
-          data.tshirtSize,
-          data.role,
-          sanitizeForSheet(data.previousExperience || ""),
-          "", // legacy trial_run_available column — safe to delete from sheet later
-          now,
-        ],
-      ],
-    },
+    requestBody: { values: rows },
   });
 
   if (data.role === "site_leader") {

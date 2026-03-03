@@ -6,45 +6,66 @@ export const EVENT_TIME_DISPLAY = "8:00 AM – 10:00 AM";
 export const VOLUNTEER_GOAL = 777;
 
 export const RALLY_POINT_SEED_DATA = [
-  // Priority Tier 1 — High Traffic / Post-July 4th
-  { name: "Garfield Park", address: "2345 Pagoda Dr, Indianapolis, IN", lat: 39.7276, lng: -86.1549, zone: "Near South", capacity: 50 },
+  // DOWNTOWN CORE
   { name: "White River State Park", address: "801 W Washington St, Indianapolis, IN", lat: 39.7655, lng: -86.1710, zone: "Downtown", capacity: 50 },
-  { name: "Riverside Park — North Zone", address: "2420 E Riverside Dr, Indianapolis, IN", lat: 39.8220, lng: -86.1196, zone: "Northwest", capacity: 40 },
-  { name: "Riverside Park — South Zone", address: "2420 E Riverside Dr, Indianapolis, IN", lat: 39.8170, lng: -86.1196, zone: "Northwest", capacity: 40 },
-
-  // Priority Tier 2 — Urban Core / Commercial Districts
   { name: "Military Park", address: "601 W New York St, Indianapolis, IN", lat: 39.7740, lng: -86.1713, zone: "Downtown", capacity: 30 },
-  { name: "Fountain Square District", address: "1056 Virginia Ave, Indianapolis, IN", lat: 39.7485, lng: -86.1460, zone: "Near South", capacity: 35 },
-  { name: "Fletcher Place Neighborhood", address: "630 Virginia Ave, Indianapolis, IN", lat: 39.7520, lng: -86.1490, zone: "Near South", capacity: 30 },
-  { name: "Bates-Hendricks Neighborhood", address: "1528 S Madison Ave, Indianapolis, IN", lat: 39.7380, lng: -86.1550, zone: "Near South", capacity: 30 },
-
-  // Priority Tier 3 — Major Neighborhood Parks
-  { name: "Ellenberger Park", address: "5301 E St Clair St, Indianapolis, IN", lat: 39.7797, lng: -86.0878, zone: "East", capacity: 30 },
-  { name: "Brookside Park", address: "3500 Brookside Pkwy S Dr, Indianapolis, IN", lat: 39.7883, lng: -86.1048, zone: "Near East", capacity: 30 },
-  { name: "Washington Park", address: "3130 E 30th St, Indianapolis, IN", lat: 39.8051, lng: -86.1100, zone: "North", capacity: 30 },
-  { name: "Broad Ripple Park", address: "1550 Broad Ripple Ave, Indianapolis, IN", lat: 39.8690, lng: -86.1411, zone: "North", capacity: 30 },
-
-  // Priority Tier 4 — Strategic Neighborhoods
-  { name: "Highland Park", address: "1100 E New York St, Indianapolis, IN", lat: 39.7700, lng: -86.1430, zone: "Near East", capacity: 25 },
-  { name: "Southwestway Park", address: "8400 Mann Rd, Indianapolis, IN", lat: 39.6648, lng: -86.2245, zone: "West", capacity: 35 },
-  { name: "Sahm Park", address: "6801 E 91st St, Indianapolis, IN", lat: 39.9157, lng: -86.0590, zone: "North", capacity: 25 },
-  { name: "Arsenal Park", address: "4602 Indianola Ave, Indianapolis, IN", lat: 39.8265, lng: -86.1320, zone: "Near East", capacity: 25 },
-
-  // Priority Tier 5 — Downtown Extensions
   { name: "University Park", address: "300 S Meridian St, Indianapolis, IN", lat: 39.7660, lng: -86.1580, zone: "Downtown", capacity: 25 },
-  { name: "Dr. MLK Jr. Park & Landmark for Peace", address: "1702 Dr. Martin Luther King Jr St, Indianapolis, IN", lat: 39.7750, lng: -86.1650, zone: "Downtown", capacity: 25 },
   { name: "Colts Canal Playscape", address: "Canal Walk, Indianapolis, IN", lat: 39.7700, lng: -86.1670, zone: "Downtown", capacity: 20 },
+
+  // NEAR SOUTH
+  { name: "Garfield Park", address: "2345 Pagoda Dr, Indianapolis, IN", lat: 39.7276, lng: -86.1549, zone: "Near South", capacity: 50 },
+  { name: "Fountain Square District", address: "1056 Virginia Ave, Indianapolis, IN", lat: 39.7485, lng: -86.1460, zone: "Near South", capacity: 35 },
+  { name: "Fletcher Place/Holy Rosary", address: "630 Virginia Ave, Indianapolis, IN", lat: 39.7520, lng: -86.1490, zone: "Near South", capacity: 30 },
+  { name: "Bates-Hendricks", address: "1528 S Madison Ave, Indianapolis, IN", lat: 39.7380, lng: -86.1550, zone: "Near South", capacity: 30 },
+
+  // NEAR EAST
+  { name: "Ellenberger Park", address: "5301 E St Clair St, Indianapolis, IN", lat: 39.7797, lng: -86.0878, zone: "Near East", capacity: 30 },
+  { name: "Brookside Park", address: "3500 Brookside Pkwy S Dr, Indianapolis, IN", lat: 39.7883, lng: -86.1048, zone: "Near East", capacity: 30 },
+  { name: "Spades Park", address: "1800 Nowland Ave, Indianapolis, IN", lat: 39.7650, lng: -86.1100, zone: "Near East", capacity: 25 },
+  { name: "Christian Park", address: "4200 English Ave, Indianapolis, IN", lat: 39.7480, lng: -86.0850, zone: "Near East", capacity: 20 },
+
+  // NEAR NORTH
+  { name: "Dr. MLK Jr. Park & Landmark for Peace", address: "1702 Dr. Martin Luther King Jr St, Indianapolis, IN", lat: 39.7750, lng: -86.1650, zone: "Near North", capacity: 30 },
+  { name: "Fall Creek Park", address: "Fall Creek Pkwy, Indianapolis, IN", lat: 39.7865, lng: -86.1740, zone: "Near North", capacity: 25 },
+  { name: "Arsenal Park", address: "4602 Indianola Ave, Indianapolis, IN", lat: 39.8265, lng: -86.1320, zone: "Near North", capacity: 25 },
   { name: "Watkins Park", address: "2360 Dr. Martin Luther King Jr St, Indianapolis, IN", lat: 39.7855, lng: -86.1610, zone: "Near North", capacity: 20 },
 
-  // Priority Tier 6 — Coverage Zones
-  { name: "Spades Park", address: "1800 Nowland Ave, Indianapolis, IN", lat: 39.7650, lng: -86.1100, zone: "East", capacity: 20 },
-  { name: "Bertha Ross Park", address: "3700 N Michigan Rd, Indianapolis, IN", lat: 39.8180, lng: -86.1850, zone: "Near North", capacity: 20 },
-  { name: "Northwestway Park", address: "5253 W 62nd St, Indianapolis, IN", lat: 39.8538, lng: -86.2254, zone: "Northwest", capacity: 25 },
-  { name: "Thatcher Park", address: "4649 W Vermont St, Indianapolis, IN", lat: 39.7500, lng: -86.2000, zone: "West", capacity: 20 },
-  { name: "Skiles Test Park", address: "3701 Mitthoeffer Rd, Indianapolis, IN", lat: 39.8075, lng: -85.9811, zone: "Far East", capacity: 20 },
+  // NORTHWEST
+  { name: "Riverside Park — North Zone", address: "2420 E Riverside Dr, Indianapolis, IN", lat: 39.8220, lng: -86.1196, zone: "Northwest", capacity: 40 },
+  { name: "Riverside Park — South Zone", address: "2420 E Riverside Dr, Indianapolis, IN", lat: 39.8170, lng: -86.1196, zone: "Northwest", capacity: 40 },
+  { name: "Holliday Park", address: "6363 Spring Mill Rd, Indianapolis, IN", lat: 39.8710, lng: -86.1627, zone: "Northwest", capacity: 25 },
+
+  // NORTH
+  { name: "Broad Ripple Park", address: "1550 Broad Ripple Ave, Indianapolis, IN", lat: 39.8690, lng: -86.1411, zone: "North", capacity: 30 },
+
+  // NEAR NORTHEAST
+  { name: "Highland Park", address: "1100 E New York St, Indianapolis, IN", lat: 39.7700, lng: -86.1430, zone: "Near Northeast", capacity: 25 },
+
+  // NEAR WEST
+  { name: "Washington Park", address: "3130 E 30th St, Indianapolis, IN", lat: 39.8051, lng: -86.1100, zone: "Near West", capacity: 30 },
+
+  // SOUTH
+  { name: "South Grove Park", address: "South Grove Ave, Indianapolis, IN", lat: 39.7065, lng: -86.0909, zone: "South", capacity: 20 },
+  { name: "Pleasant Run Park", address: "Pleasant Run Pkwy, Indianapolis, IN", lat: 39.7281, lng: -86.1717, zone: "South", capacity: 20 },
+
+  // WEST
+  { name: "Rhodius Park", address: "1720 W Wilkins St, Indianapolis, IN", lat: 39.7545, lng: -86.1927, zone: "West", capacity: 20 },
 ] as const;
 
 export const TSHIRT_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL"] as const;
+
+export const MEETING_AVAILABILITY_OPTIONS = [
+  "April meeting",
+  "May meeting",
+  "Both",
+  "Neither but I'm still in",
+] as const;
+
+export const MEETING_FORMAT_OPTIONS = [
+  "In-person at 6338 Westfield Blvd",
+  "Google Meet",
+  "Either works",
+] as const;
 
 export const FAQ_CATEGORIES = [
   {
@@ -113,7 +134,7 @@ export const FAQ_CATEGORIES = [
     items: [
       {
         question: "I have a question that's not answered here.",
-        answer: "Reach out to Max Moore at max@maxmoore.com and we'll get back to you.",
+        answer: "Reach out to Max Moore at max@maxmoorerealty.com and we'll get back to you.",
       },
     ],
   },

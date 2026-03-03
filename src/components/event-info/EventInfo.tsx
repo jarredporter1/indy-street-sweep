@@ -16,7 +16,7 @@ const FEATURES = [
   {
     icon: "03",
     title: "Clean Up",
-    description: "Two hours of impact, together. Gloves and bags provided by Indy Parks.",
+    description: "Two hours of impact, together. We provide gloves, trash bags, safety vests, and truck pickup — just show up ready to work.",
   },
   {
     icon: "04",
