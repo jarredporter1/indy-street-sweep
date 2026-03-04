@@ -10,7 +10,7 @@ const LEADER_BENEFITS = [
 
 export function GetInvolved() {
   return (
-    <section className="bg-indy-navy py-0">
+    <section id="trial-sweep" className="bg-indy-navy py-0">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[600px]">
         {/* Left — Trial Sweep */}
         <div className="relative overflow-hidden min-h-[400px] lg:min-h-full">
@@ -46,14 +46,13 @@ export function GetInvolved() {
                   <svg className="w-4 h-4 text-indy-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  {/* TODO: Replace with actual date */}
-                  <span>March 2026 — Date TBD</span>
+                  <span>March 27, 2026</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-white/80">
                   <svg className="w-4 h-4 text-indy-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span>9:00 AM – 11:00 AM</span>
+                  <span>8:00 – 10:00 AM</span>
                 </div>
               </div>
 
@@ -99,14 +98,12 @@ export function GetInvolved() {
             <div className="flex gap-4">
               <div className="bg-white/10 rounded-xl p-4 flex-1 space-y-1">
                 <p className="text-sm font-semibold text-white">April Meeting</p>
-                {/* TODO: Replace with actual date */}
-                <p className="text-xs text-white/50">Date TBD — 9:00 AM</p>
+                <p className="text-xs text-white/50">April 9 — 4:00–5:30 PM</p>
                 <p className="text-xs text-white/50">6338 Westfield Blvd or Google Meet</p>
               </div>
               <div className="bg-white/10 rounded-xl p-4 flex-1 space-y-1">
                 <p className="text-sm font-semibold text-white">May Meeting</p>
-                {/* TODO: Replace with actual date */}
-                <p className="text-xs text-white/50">Date TBD — 9:00 AM</p>
+                <p className="text-xs text-white/50">May TBD — 8:00–9:30 AM</p>
                 <p className="text-xs text-white/50">6338 Westfield Blvd or Google Meet</p>
               </div>
             </div>

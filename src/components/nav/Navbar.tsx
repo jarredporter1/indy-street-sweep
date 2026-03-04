@@ -20,6 +20,9 @@ export function Navbar() {
 
         {/* Nav Links */}
         <div className="hidden md:flex items-center gap-8">
+          <a href="#trial-sweep" className="text-sm text-gray-600 hover:text-indy-navy transition-colors">
+            Next Indy Street Sweep
+          </a>
           <a href="#partners" className="text-sm text-gray-600 hover:text-indy-navy transition-colors">
             Partners
           </a>

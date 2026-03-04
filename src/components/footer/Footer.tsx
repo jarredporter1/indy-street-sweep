@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 function InstagramIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -11,10 +13,15 @@ export function Footer() {
     <footer className="py-12 section-px bg-indy-navy text-white">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Brand */}
-        <div className="space-y-3">
-          <h3 className="font-heading text-lg font-bold">
-            Indy Street Sweep
-          </h3>
+        <div className="space-y-4">
+          <Image
+            src="/images/logos/Street Sweep Logo Transparent 1.png"
+            alt="Indy Street Sweep"
+            width={180}
+            height={50}
+            className="h-12 w-auto brightness-0 invert"
+            unoptimized
+          />
           <p className="text-sm text-white/60 leading-relaxed">
             Day of Caring 777
             <br />
@@ -44,10 +51,10 @@ export function Footer() {
             <div className="text-sm text-white/70 space-y-2">
               <p>Questions? Reach out to us.</p>
               <a
-                href="mailto:max@maxmoorerealty.com"
+                href="mailto:trace@rootsrealty.co"
                 className="text-indy-gold hover:text-white transition-colors"
               >
-                max@maxmoorerealty.com
+                trace@rootsrealty.co
               </a>
             </div>
           </div>
