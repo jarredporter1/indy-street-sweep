@@ -9,9 +9,10 @@ interface LocationPickerProps {
   value: string;
   onChange: (id: string) => void;
   error?: string;
+  role?: string;
 }
 
-export function LocationPicker({ rallyPoints, value, onChange, error }: LocationPickerProps) {
+export function LocationPicker({ rallyPoints, value, onChange, error, role }: LocationPickerProps) {
   const [search, setSearch] = useState("");
 
   const zones = useMemo(() => {
@@ -67,14 +68,16 @@ export function LocationPicker({ rallyPoints, value, onChange, error }: Location
                 const density = getDensityLevel(rp.volunteer_count);
                 const isSelected = value === rp.id;
                 const isFull = rp.volunteer_count >= rp.capacity;
+                const hasLeader = role === "site_leader" && !!rp.site_leader_id;
+                const isDisabled = isFull || hasLeader;
                 return (
                   <button
                     key={rp.id}
                     type="button"
-                    onClick={() => !isFull && onChange(rp.id)}
-                    disabled={isFull}
+                    onClick={() => !isDisabled && onChange(rp.id)}
+                    disabled={isDisabled}
                     className={`w-full p-3 rounded-lg border text-left transition-all ${
-                      isFull
+                      isDisabled
                         ? "border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed"
                         : isSelected
                         ? "border-indy-red bg-indy-red/5 cursor-pointer"
@@ -94,7 +97,9 @@ export function LocationPicker({ rallyPoints, value, onChange, error }: Location
                         <span className="text-xs font-semibold text-gray-700">
                           {rp.volunteer_count}/{rp.capacity}
                         </span>
-                        {isFull ? (
+                        {hasLeader ? (
+                          <p className="text-xs text-gray-400 font-semibold">Has leader</p>
+                        ) : isFull ? (
                           <p className="text-xs text-gray-400 font-semibold">Full</p>
                         ) : (
                         <p className="text-xs" style={{

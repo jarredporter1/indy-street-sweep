@@ -262,6 +262,7 @@ export function SignUpForm({ rallyPoints, preselectedRallyPointId, onClose }: Si
             value={form.rallyPointId}
             onChange={handleLocationSelect}
             error={errors.rallyPointId}
+            role={form.role}
           />
         )}
 

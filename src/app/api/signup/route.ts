@@ -136,6 +136,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Prevent duplicate site leaders at the same rally point
+    if (data.role === "site_leader" && targetPoint.site_leader_id) {
+      return NextResponse.json(
+        { error: `${targetPoint.name} already has a site leader. You can still sign up as a volunteer.` },
+        { status: 400 }
+      );
+    }
+
     // Get count BEFORE signup for milestone detection
     const countBefore = await getVolunteerCount();
 
