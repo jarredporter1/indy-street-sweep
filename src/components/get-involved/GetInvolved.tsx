@@ -103,7 +103,7 @@ export function GetInvolved() {
               </div>
               <div className="bg-white/10 rounded-xl p-4 flex-1 space-y-1">
                 <p className="text-sm font-semibold text-white">May Meeting</p>
-                <p className="text-xs text-white/50">May TBD — 8:00–9:30 AM</p>
+                <p className="text-xs text-white/50">May 6 — 8:00–9:30 AM</p>
                 <p className="text-xs text-white/50">6338 Westfield Blvd or Google Meet</p>
               </div>
             </div>
