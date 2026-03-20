@@ -42,7 +42,7 @@ function getMilestoneEmail(milestone: number, count: number): MilestoneEmail | n
     case 100:
       return {
         subject: "Triple Digits: 100 Volunteers Signed Up 💯",
-        body: wrap(`<p style="font-size:16px;">Hey [NAME],</p><p>100 volunteers.</p><p>That's enough people to cover 4 full rally points on July 7. But we're going for 25 parks.</p><p><strong>Current: ${count}/777 (${pct}% there)</strong></p><p>Let's keep the momentum going.</p>`),
+        body: wrap(`<p style="font-size:16px;">Hey [NAME],</p><p>100 volunteers.</p><p>That's enough people to cover 4 full rally points on July 7. But we're going for 26 parks.</p><p><strong>Current: ${count}/777 (${pct}% there)</strong></p><p>Let's keep the momentum going.</p>`),
       };
     case 200:
       return {

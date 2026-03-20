@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Street Sweep Indy",
     description:
-      "777 volunteers. 25 parks. 1 city. July 7, 2026. Join the biggest cleanup day Indianapolis has ever seen.",
+      "777 volunteers. 26 parks. 1 city. July 7, 2026. Join the biggest cleanup day Indianapolis has ever seen.",
     type: "website",
     url: "https://indystreetsweep.com",
     siteName: "Street Sweep Indy",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Street Sweep Indy",
     description:
-      "777 volunteers. 25 parks. 1 city. July 7, 2026. Join the biggest cleanup day Indianapolis has ever seen.",
+      "777 volunteers. 26 parks. 1 city. July 7, 2026. Join the biggest cleanup day Indianapolis has ever seen.",
     images: ["/images/social sharing street sweep.png"],
   },
 };

@@ -73,6 +73,9 @@ const RALLY_POINTS = [
 
   // WEST
   ["rp-25", "Rhodius Park",                            "1720 W Wilkins St, Indianapolis, IN",                  "39.7545", "-86.1927", "", "20", "West",           ""],
+
+  // EAST
+  ["rp-26", "Grassy Creek Regional Park",             "10510 E 30th St, Indianapolis, IN 46229",              "39.8085", "-85.9710", "", "30", "East",           ""],
 ];
 
 async function update() {
@@ -99,7 +102,7 @@ async function update() {
   // Verify
   const verify = await sheets.spreadsheets.values.get({
     spreadsheetId: SHEET_ID,
-    range: "RallyPoints!A1:I26",
+    range: "RallyPoints!A1:I27",
   });
   const rows = verify.data.values || [];
   console.log(`\nVerified: ${rows.length - 1} rally points in sheet (plus header)`);

@@ -50,6 +50,9 @@ export const RALLY_POINT_SEED_DATA = [
 
   // WEST
   { name: "Rhodius Park", address: "1720 W Wilkins St, Indianapolis, IN", lat: 39.7545, lng: -86.1927, zone: "West", capacity: 20 },
+
+  // EAST
+  { name: "Grassy Creek Regional Park", address: "10510 E 30th St, Indianapolis, IN 46229", lat: 39.8085, lng: -85.9710, zone: "East", capacity: 30 },
 ] as const;
 
 export const TSHIRT_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL"] as const;
@@ -68,7 +71,7 @@ export const FAQ_CATEGORIES = [
     items: [
       {
         question: "What is Indy Street Sweep?",
-        answer: "Indy Street Sweep is a citywide Day of Caring on July 7, 2026, where 777 volunteers will gather across 25 locations to clean up Indianapolis. It's one massive morning of neighbors serving neighbors.",
+        answer: "Indy Street Sweep is a citywide Day of Caring on July 7, 2026, where 777 volunteers will gather across 26 locations to clean up Indianapolis. It's one massive morning of neighbors serving neighbors.",
       },
       {
         question: "When is the event?",

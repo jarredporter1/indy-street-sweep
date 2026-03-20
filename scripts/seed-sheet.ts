@@ -66,6 +66,9 @@ const RALLY_POINTS = [
 
   // WEST
   ["rp-25", "Rhodius Park",                            "1720 W Wilkins St, Indianapolis, IN",                  "39.7545", "-86.1927", "", "20", "West",           ""],
+
+  // EAST
+  ["rp-26", "Grassy Creek Regional Park",             "10510 E 30th St, Indianapolis, IN 46229",              "39.8085", "-85.9710", "", "30", "East",           ""],
 ];
 
 async function seed() {
@@ -115,7 +118,7 @@ async function seed() {
   });
 
   // Write RallyPoints headers + data
-  console.log("Writing 25 rally points...");
+  console.log("Writing 26 rally points...");
   await sheets.spreadsheets.values.update({
     spreadsheetId: SHEET_ID,
     range: "RallyPoints!A1",
@@ -140,7 +143,7 @@ async function seed() {
     },
   });
 
-  console.log("Done! 25 rally points written. Signups cleared for fresh start.");
+  console.log("Done! 26 rally points written. Signups cleared for fresh start.");
 }
 
 seed().catch(console.error);
