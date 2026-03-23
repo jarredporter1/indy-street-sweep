@@ -7,6 +7,7 @@ const PARTNERS = [
   { name: "Roots Realty Co", logo: "/images/logos/Roots-Secondary-RGB (1) 1.png" },
   { name: "Indy Parks", logo: "/images/logos/indyparks.png" },
   { name: "Tuscan", logo: "/images/logos/Tuscan Logo Black.png" },
+  { name: "Heart of a Man", logo: "/images/logos/heart-of-a-man.png" },
 ];
 
 export function Partners() {
@@ -27,7 +28,7 @@ export function Partners() {
         </div>
 
         {/* Logo grid — each in its own white box, full width */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-3">
           {PARTNERS.map((partner) => (
             <div
               key={partner.name}
