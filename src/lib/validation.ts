@@ -20,7 +20,7 @@ export const signupSchema = z.object({
   groupMembers: z.array(groupMemberSchema).optional().default([]),
   // Site leader fields — optional at schema level, enforced when role === "site_leader"
   previousSweep: z.enum(["yes", "no"]).optional(),
-  meetingPreference: z.enum(["April meeting at 6338 Westfield Blvd", "May meeting at 6338 Westfield Blvd", "Google Meet", "Either works", "Neither, but I'm still in"]).optional(),
+  meetingPreference: z.enum(["May meeting at 6338 Westfield Blvd", "June meeting at 6338 Westfield Blvd", "Google Meet", "Either works", "Neither, but I'm still in"]).optional(),
 });
 
 export type SignupInput = z.infer<typeof signupSchema>;

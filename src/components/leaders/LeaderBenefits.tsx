@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 const BENEFITS = [
-  "Free trial sweep attendance (March/April/May)",
-  "Pre-event training meeting (April or May at 6338 Westfield Blvd)",
+  "Free trial sweep attendance (March/May)",
+  "Pre-event training meeting (May or June at 6338 Westfield Blvd)",
   "Full support from our team",
   "Direct communication with your volunteers",
   "All materials provided",
@@ -50,15 +50,13 @@ export function LeaderBenefits() {
             </h3>
             <div className="space-y-3">
               <div className="bg-white rounded-xl p-4 border border-gray-200 space-y-1">
-                <p className="text-sm font-semibold text-indy-navy">April Meeting</p>
-                {/* TODO: Replace with actual date */}
-                <p className="text-xs text-gray-500">Date TBD — 9:00 AM</p>
+                <p className="text-sm font-semibold text-indy-navy">May Meeting</p>
+                <p className="text-xs text-gray-500">May 6 — 8:00–9:30 AM</p>
                 <p className="text-xs text-gray-500">6338 Westfield Blvd or Google Meet</p>
               </div>
               <div className="bg-white rounded-xl p-4 border border-gray-200 space-y-1">
-                <p className="text-sm font-semibold text-indy-navy">May Meeting</p>
-                {/* TODO: Replace with actual date */}
-                <p className="text-xs text-gray-500">Date TBD — 9:00 AM</p>
+                <p className="text-sm font-semibold text-indy-navy">June Meeting</p>
+                <p className="text-xs text-gray-500">Date TBD</p>
                 <p className="text-xs text-gray-500">6338 Westfield Blvd or Google Meet</p>
               </div>
             </div>

@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 const LEADER_BENEFITS = [
-  "Free trial sweep attendance (March/April/May)",
-  "Pre-event training meeting (April or May at 6338 Westfield Blvd)",
+  "Free trial sweep attendance (March/May)",
+  "Pre-event training meeting (May or June at 6338 Westfield Blvd)",
   "Full support from our team",
   "Direct communication with your volunteers",
   "All materials provided",
@@ -97,13 +97,13 @@ export function GetInvolved() {
 
             <div className="flex gap-4">
               <div className="bg-white/10 rounded-xl p-4 flex-1 space-y-1">
-                <p className="text-sm font-semibold text-white">April Meeting</p>
-                <p className="text-xs text-white/50">April 9 — 4:00–5:30 PM</p>
+                <p className="text-sm font-semibold text-white">May Meeting</p>
+                <p className="text-xs text-white/50">May 6 — 8:00–9:30 AM</p>
                 <p className="text-xs text-white/50">6338 Westfield Blvd or Google Meet</p>
               </div>
               <div className="bg-white/10 rounded-xl p-4 flex-1 space-y-1">
-                <p className="text-sm font-semibold text-white">May Meeting</p>
-                <p className="text-xs text-white/50">May 6 — 8:00–9:30 AM</p>
+                <p className="text-sm font-semibold text-white">June Meeting</p>
+                <p className="text-xs text-white/50">Date TBD</p>
                 <p className="text-xs text-white/50">6338 Westfield Blvd or Google Meet</p>
               </div>
             </div>

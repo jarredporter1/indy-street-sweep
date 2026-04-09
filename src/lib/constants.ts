@@ -58,8 +58,8 @@ export const RALLY_POINT_SEED_DATA = [
 export const TSHIRT_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL"] as const;
 
 export const MEETING_OPTIONS = [
-  "April meeting at 6338 Westfield Blvd",
   "May meeting at 6338 Westfield Blvd",
+  "June meeting at 6338 Westfield Blvd",
   "Google Meet",
   "Either works",
   "Neither, but I'm still in",
